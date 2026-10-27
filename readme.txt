@@ -82,3 +82,8 @@ Yes. Every audit report, along with the timestamp, is saved to your WordPress da
 * Added live search grounding for Google Gemini and OpenAI.
 * Added Gutenberg live editor content capture.
 * Added Patreon community supporter UI.
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+Initial release of AI Content Freshness Monitor. Install to begin auditing content staleness and topical freshness against live search results.
