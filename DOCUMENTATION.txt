@@ -1,0 +1,311 @@
+================================================================================
+AI CONTENT FRESHNESS MONITOR - COMPLETE DOCUMENTATION
+================================================================================
+Plugin Name:       AI Content Freshness Monitor
+Plugin Slug:       ai-content-freshness
+Version:           1.0.0
+Author:            nachar-code
+Author Website:    https://github.com/nachar-code
+Repository:        https://github.com/nachar-code/ai-content-freshness
+License:           GPL-2.0-or-later
+Target PHP:        7.4 to 8.3
+Target WordPress:  5.8+ (Compatible with latest 6.x releases)
+================================================================================
+
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+1.  OVERVIEW & CORE CONCEPT
+2.  SYSTEM REQUIREMENTS
+3.  INSTALLATION & ACTIVATION
+4.  CONFIGURATION (TOOLS > CONTENT FRESHNESS)
+    4.1. AI Engine Selection
+    4.2. Google Gemini Setup
+    4.3. OpenAI Setup
+    4.4. Manual Model Overrides & Fallbacks
+    4.5. Staleness Threshold (Months)
+    4.6. Connection Testing
+5.  STALE POSTS INVENTORY DASHBOARD
+    5.1. Dashboard Access
+    5.2. Automated Aging Query
+    5.3. SEO Focus Keyword Auto-Detection
+    5.4. Inline Keyword Editing (Background Auto-Save)
+    5.5. Row-by-Row Live SERP Scanning
+6.  POST EDITOR SIDEBAR META BOX
+    6.1. Gutenberg & Classic Editor Compatibility
+    6.2. Live Unsaved Content Detection
+    6.3. Running an Audit
+    6.4. Report Card Breakdown
+7.  AI ENGINE & SEARCH GROUNDING ARCHITECTURE
+    7.1. Grounded Search Mechanics
+    7.2. Strict JSON Schema Validation
+    7.3. Network & cURL Optimizations (IPv4 Forcing)
+8.  DIRECTORY & FILE STRUCTURE
+9.  DATABASE SCHEMA & POST META KEYS
+10. DEVELOPER HOOKS & ACTIONS
+11. TROUBLESHOOTING & FAQS
+================================================================================
+
+
+1. OVERVIEW & CORE CONCEPT
+--------------------------------------------------------------------------------
+AI Content Freshness Monitor is a high-performance WordPress plugin designed to
+combat content decay and search ranking degradation. Instead of simply checking
+post publication dates, it leverages AI engines (Google Gemini or OpenAI) equipped
+with native real-time web search grounding to compare an article against top-ranking
+competitors for a designated target keyword.
+
+Key Capabilities:
+- Identifies outdated factual claims and suggests current corrections.
+- Discovers missing subtopics covered by currently ranking competitors.
+- Assigns an objective Freshness Score (0 to 100) with color-coded badges.
+- Provides an actionable editing checklist right inside the post editor.
+- Automatically audits and tracks all aged posts in a dedicated admin dashboard.
+
+
+2. SYSTEM REQUIREMENTS
+--------------------------------------------------------------------------------
+- WordPress: Version 5.8 or higher.
+- PHP: Version 7.4, 8.0, 8.1, 8.2, or 8.3.
+- PHP cURL Extension enabled with OpenSSL support.
+- An active API key from either:
+  * Google AI Studio (for Google Gemini)
+  * OpenAI Platform (for OpenAI GPT-4o)
+
+
+3. INSTALLATION & ACTIVATION
+--------------------------------------------------------------------------------
+Method A: Upload via WordPress Admin
+1. Go to WordPress Admin -> Plugins -> Add New -> Upload Plugin.
+2. Select the "AI Content Freshness Monitor.zip" file.
+3. Click "Install Now" and then "Activate Plugin".
+
+Method B: Manual FTP/Directory Upload
+1. Extract the plugin folder into your WordPress plugins directory:
+   /wp-content/plugins/ai-content-freshness/
+2. Log into WordPress Admin -> Plugins -> Installed Plugins.
+3. Locate "AI Content Freshness Monitor" and click "Activate".
+
+
+4. CONFIGURATION (TOOLS > CONTENT FRESHNESS)
+--------------------------------------------------------------------------------
+Navigate to Tools -> Content Freshness in your WordPress admin menu. Click on the
+"API & Engine Settings" tab to configure credentials.
+
+4.1. AI Engine Selection
+Select your primary AI provider from the dropdown:
+- Google Gemini (with Google Search Grounding) - Recommended for real-time accuracy.
+- OpenAI GPT-4o (with Web Search)
+
+4.2. Google Gemini Setup
+- Obtain an API key from Google AI Studio: https://aistudio.google.com/
+- Paste your key into the "Gemini API Key" field.
+- Model input defaults to: gemini-3.8-flash.
+
+4.3. OpenAI Setup
+- Obtain an API key from OpenAI: https://platform.openai.com/api-keys
+- Paste your key into the "OpenAI API Key" field.
+- Model input defaults to: gpt-4o.
+
+4.4. Manual Model Overrides & Fallbacks
+Both engines support manual model overrides:
+- You can enter any custom model name (e.g., gemini-1.5-pro, gpt-4o-mini).
+- Any leading "models/" prefix copied from Google AI Studio is stripped automatically.
+- If left blank, the plugin automatically falls back to:
+  * Gemini: gemini-3.8-flash
+  * OpenAI: gpt-4o
+
+4.5. Staleness Threshold (Months)
+- Define after how many months of non-modification a published post is deemed stale.
+- Default: 6 months (configurable to any integer >= 1).
+
+4.6. Connection Testing
+- Click the "Test Connection" button beside the API key field.
+- The plugin instantly performs a lightweight verification against the model endpoint.
+- Validates the key in < 300ms without generating unnecessary tokens or incurring costs.
+- Displays an inline green checkmark on success, or an informative error message.
+- Always click "Save Settings" at the bottom to save changes to the database.
+
+
+5. STALE POSTS INVENTORY DASHBOARD
+--------------------------------------------------------------------------------
+5.1. Dashboard Access
+Under Tools -> Content Freshness, the default active tab is "Stale Posts Inventory".
+
+5.2. Automated Aging Query
+- Queries the WordPress database for posts matching:
+  * post_type: 'post'
+  * post_status: 'publish'
+  * post_modified: older than (current_date - staleness_mo months)
+- Sorted by oldest modified date first so high-priority stale content appears on top.
+- Includes pagination (20 posts per page).
+
+5.3. SEO Focus Keyword Auto-Detection
+The dashboard automatically populates the target keyword column using:
+1. Existing plugin post meta (_aicfm_target_keyword).
+2. If empty, falls back to Rank Math SEO focus keyword (rank_math_focus_keyword).
+3. If empty, falls back to Yoast SEO focus keyword (_yoast_wpseo_focuskw).
+
+5.4. Inline Keyword Editing (Background Auto-Save)
+- You can edit any keyword directly in the table input field.
+- Clicking outside the field or pressing Enter triggers a background AJAX call.
+- A subtle indicator shows "Saving..." -> "Saved" with built-in race-condition locking.
+
+5.5. Row-by-Row Live SERP Scanning
+- Click "Scan Now" (or "Re-Scan") on any row.
+- The button label switches to "Auditing SERP..." with an active spinner.
+- The AI performs search grounding and updates the row without page reload:
+  * Replaces "Needs Audit" with a color-coded Score Pill (Green, Orange, or Red).
+  * Displays the audited date.
+  * Updates button text to "Re-Scan".
+
+
+6. POST EDITOR SIDEBAR META BOX
+--------------------------------------------------------------------------------
+6.1. Editor Compatibility
+The "Content Freshness Audit" meta box appears on post.php and post-new.php screens:
+- Gutenberg (Block Editor): Pinned in the right sidebar under Post Document settings,
+  or displayed in the bottom meta box section.
+- Classic Editor: Fixed in the upper right sidebar with High priority.
+
+6.2. Live Unsaved Content Detection
+If you write or edit content in the editor and click "Scan & Refresh" before clicking
+"Save Draft" or "Update", the plugin dynamically reads your live editor text via
+wp.data.select('core/editor') or TinyMCE, guaranteeing that the AI audits your
+latest revisions instead of stale database copies.
+
+6.3. Running an Audit
+1. Enter your Target Keyword in the input field.
+2. Click the blue "Scan & Refresh" button.
+3. The AI queries Google/OpenAI live search grounding and renders the report card.
+
+6.4. Report Card Breakdown
+- Freshness Score Pill:
+  * 70 - 100: Green (High Freshness & Relevance)
+  * 50 - 69:  Orange (Moderate Staleness / Missing New Trends)
+  * 0  - 49:  Red (Critically Stale / Obsolete Claims)
+- Summary Box: Executive summary evaluating the post against SERP competitors.
+- Outdated Points: Collapsible list highlighting obsolete claims and factual fixes.
+- Missing Topics: Tag badges detailing essential topics ranking competitors discuss.
+- Action Checklist: Interactive step-by-step checkboxes with strike-through completion.
+
+
+7. AI ENGINE & SEARCH GROUNDING ARCHITECTURE
+--------------------------------------------------------------------------------
+7.1. Grounded Search Mechanics
+The plugin requests the model to execute a live web search for the target keyword
+and cross-reference top organic search results with the post body (truncated at 2,500
+words to preserve token efficiency).
+
+Gemini API Request Structure:
+- Endpoint: /v1beta/models/{model}:generateContent
+- Tools Enabled: [ { "google_search": {} } ]
+
+OpenAI API Request Structure:
+- Endpoint: /v1/chat/completions (Model: gpt-4o)
+- Tools Enabled: [ { "type": "web_search" } ]
+
+7.2. Strict JSON Schema Validation
+Prompts mandate a strict JSON object:
+{
+  "score": 75,
+  "summary": "...",
+  "outdated_points": [ {"claim": "...", "fix": "..."} ],
+  "missing_topics": [ {"topic": "...", "reason": "..."} ],
+  "action_steps": [ "...", "..." ]
+}
+The client strips markdown code fences (```json ... ```) and validates required keys.
+
+7.3. Network & cURL Optimizations (IPv4 Forcing)
+To avoid the notorious "cURL error 28: Operation timed out after 15002ms" common on
+Windows/local host environments (where cURL stalls waiting for IPv6 socket timeouts),
+the plugin dynamically hooks http_api_curl to force CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4
+and uses generous 45-60 second request timeout windows.
+
+
+8. DIRECTORY & FILE STRUCTURE
+--------------------------------------------------------------------------------
+ai-content-freshness/
+├── ai-content-freshness.php          # Main bootstrap, options & activation hooks
+├── README.md                         # Repository documentation
+├── DOCUMENTATION.txt                 # Detailed reference and troubleshooting guide
+├── .gitignore                        # Git exclusion rules
+├── includes/
+│   ├── class-admin-dashboard.php     # Stale posts query, inventory table & pagination
+│   ├── class-admin-settings.php      # Tools > Content Freshness page & model options
+│   ├── class-ajax-handlers.php       # Connection test, audit runner & keyword saving
+│   ├── class-api-client.php          # Gemini & OpenAI search grounding client
+│   └── class-post-meta.php           # Post editor sidebar meta box & report renderer
+└── assets/
+    ├── css/
+    │   └── admin-style.css           # Admin styling, badges, tables & score pills
+    └── js/
+        └── admin-script.js           # AJAX handlers, auto-save & live editor capture
+
+
+9. DATABASE SCHEMA & POST META KEYS
+--------------------------------------------------------------------------------
+Option Keys (wp_options table):
+- aicfm_settings (array):
+  * 'engine'       => (string) 'gemini' or 'openai'
+  * 'gemini_key'   => (string) Google AI Studio API key
+  * 'gemini_model' => (string) Model name (default: 'gemini-3.8-flash')
+  * 'openai_key'   => (string) OpenAI platform API key
+  * 'openai_model' => (string) Model name (default: 'gpt-4o')
+  * 'staleness_mo' => (int) Staleness threshold in months (default: 6)
+
+Post Meta Keys (wp_postmeta table):
+- _aicfm_target_keyword (string): Primary SEO keyword used for audits.
+- _aicfm_audit_report   (array): Serialized JSON array of the latest audit results.
+- _aicfm_last_audited   (string): MySQL formatted datetime (Y-m-d H:i:s).
+
+
+10. DEVELOPER HOOKS & ACTIONS
+--------------------------------------------------------------------------------
+WordPress Actions Registered:
+- plugins_loaded: Bootstraps plugin classes.
+- admin_menu: Registers Tools > Content Freshness submenu.
+- admin_init: Registers Settings API options and sanitize callbacks.
+- admin_enqueue_scripts: Enqueues styles/scripts only on target admin screens.
+- add_meta_boxes: Registers the sidebar meta box on post edit screens.
+- save_post_post: Handles secure saving of post keyword meta.
+
+AJAX Endpoints (wp_ajax_*):
+- aicfm_test_connection: Validates API keys and model availability.
+  * Nonce Action: 'aicfm_admin_nonce'
+  * Capability: 'manage_options'
+- aicfm_execute_post_audit: Executes full SERP audit for a single post.
+  * Nonce Action: 'aicfm_post_nonce'
+  * Capability: 'edit_post'
+- aicfm_save_row_keyword: Inline saves a keyword from the inventory table.
+  * Nonce Action: 'aicfm_save_keyword_nonce'
+  * Capability: 'edit_post'
+
+
+11. TROUBLESHOOTING & FAQS
+--------------------------------------------------------------------------------
+Q: Clicking "Test Connection" results in cURL error 28 (timeout).
+A: This has been resolved in version 1.0.0 by forcing cURL to resolve using IPv4
+   (CURL_IPRESOLVE_V4) and switching from a heavy generateContent call to Google's
+   instant model metadata endpoint. If it still occurs, verify your server's outgoing
+   internet access and firewall rules for generativelanguage.googleapis.com.
+
+Q: Model "gemini-2.5-flash" says it is no longer available.
+A: The plugin has been updated to use "gemini-3.8-flash" as the default fallback.
+   You can also enter any other valid model manually in Tools -> Content Freshness.
+
+Q: The Content Freshness Audit meta box doesn't appear on my post screen.
+A: The meta box is registered specifically for standard WordPress blog posts ('post').
+   Ensure you are editing a post, and check Screen Options (top right) to verify that
+   "Content Freshness Audit" is checked.
+
+Q: Can I use custom post types (CPTs)?
+A: In class-post-meta.php, the meta box is currently registered for the 'post' type.
+   You can easily extend it by modifying the add_meta_box() call to include your CPT slug.
+
+Q: Do I lose audit results when updating a post?
+A: No. Audit reports are stored permanently in the _aicfm_audit_report post meta key
+   and will remain until you choose to click "Scan & Refresh" again.
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================
