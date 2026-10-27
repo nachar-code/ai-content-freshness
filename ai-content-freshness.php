@@ -10,7 +10,7 @@
  * Author URI:        https://github.com/nachar-code
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-content-freshness
+ * Text Domain:       ai-content-freshness-monitor
  * Domain Path:       /languages
  *
  * @package AI_Content_Freshness
@@ -51,8 +51,6 @@ register_activation_hook( __FILE__, 'aicfm_activate_plugin' );
  * @return void
  */
 function aicfm_init_plugin() {
-	load_plugin_textdomain( 'ai-content-freshness', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
 	// Core components.
 	require_once AICFM_PLUGIN_DIR . 'includes/class-admin-settings.php';
 	require_once AICFM_PLUGIN_DIR . 'includes/class-admin-dashboard.php';
@@ -73,8 +71,8 @@ add_action( 'plugins_loaded', 'aicfm_init_plugin' );
  * @return array
  */
 function aicfm_add_action_links( $links ) {
-	$settings_link = '<a href="' . esc_url( admin_url( 'tools.php?page=aicfm-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-content-freshness' ) . '</a>';
-	$patreon_link  = '<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" style="color: #f96854; font-weight: bold;">' . esc_html__( 'Support on Patreon', 'ai-content-freshness' ) . '</a>';
+	$settings_link = '<a href="' . esc_url( admin_url( 'tools.php?page=aicfm-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-content-freshness-monitor' ) . '</a>';
+	$patreon_link  = '<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" style="color: #f96854; font-weight: bold;">' . esc_html__( 'Support on Patreon', 'ai-content-freshness-monitor' ) . '</a>';
 	array_unshift( $links, $settings_link );
 	$links[] = $patreon_link;
 	return $links;

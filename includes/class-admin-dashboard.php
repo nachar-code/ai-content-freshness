@@ -74,7 +74,7 @@ class Admin_Dashboard {
 					<?php
 					printf(
 						/* translators: 1: Number of posts, 2: Number of months */
-						esc_html( _n( 'Found %1$s published post not updated in the last %2$d months.', 'Found %1$s published posts not updated in the last %2$d months.', $total_posts, 'ai-content-freshness' ) ),
+						esc_html( _n( 'Found %1$s published post not updated in the last %2$d months.', 'Found %1$s published posts not updated in the last %2$d months.', $total_posts, 'ai-content-freshness-monitor' ) ),
 						'<strong>' . esc_html( number_format_i18n( $total_posts ) ) . '</strong>',
 						esc_html( (string) $staleness_mo )
 					);
@@ -86,11 +86,11 @@ class Admin_Dashboard {
 			<table class="wp-list-table widefat fixed striped posts aicfm-inventory-table">
 				<thead>
 					<tr>
-						<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-modified"><?php esc_html_e( 'Last Modified', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-keyword"><?php esc_html_e( 'Target Keyword', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-freshness"><?php esc_html_e( 'Freshness Status', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-actions"><?php esc_html_e( 'Actions', 'ai-content-freshness' ); ?></th>
+						<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-modified"><?php esc_html_e( 'Last Modified', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-keyword"><?php esc_html_e( 'Target Keyword', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-freshness"><?php esc_html_e( 'Freshness Status', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-actions"><?php esc_html_e( 'Actions', 'ai-content-freshness-monitor' ); ?></th>
 					</tr>
 				</thead>
 				<tbody id="the-list">
@@ -118,7 +118,7 @@ class Admin_Dashboard {
 							$exact_date  = get_the_modified_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $post_id );
 							$post_title  = get_the_title();
 							if ( empty( $post_title ) ) {
-								$post_title = __( '(no title)', 'ai-content-freshness' );
+								$post_title = __( '(no title)', 'ai-content-freshness-monitor' );
 							}
 							?>
 							<tr id="post-<?php echo esc_attr( (string) $post_id ); ?>" class="aicfm-post-row" data-post-id="<?php echo esc_attr( (string) $post_id ); ?>">
@@ -132,12 +132,12 @@ class Admin_Dashboard {
 									<div class="row-actions">
 										<span class="edit">
 											<a href="<?php echo esc_url( get_edit_post_link( $post_id ) ); ?>">
-												<?php esc_html_e( 'Edit', 'ai-content-freshness' ); ?>
+												<?php esc_html_e( 'Edit', 'ai-content-freshness-monitor' ); ?>
 											</a> | 
 										</span>
 										<span class="view">
 											<a href="<?php echo esc_url( get_permalink( $post_id ) ); ?>" target="_blank" rel="noopener noreferrer">
-												<?php esc_html_e( 'View', 'ai-content-freshness' ); ?>
+												<?php esc_html_e( 'View', 'ai-content-freshness-monitor' ); ?>
 											</a>
 										</span>
 									</div>
@@ -149,7 +149,7 @@ class Admin_Dashboard {
 										<?php
 										printf(
 											/* translators: %s: Relative time e.g. 7 months */
-											esc_html__( '%s ago', 'ai-content-freshness' ),
+											esc_html__( '%s ago', 'ai-content-freshness-monitor' ),
 											esc_html( $human_time )
 										);
 										?>
@@ -165,7 +165,7 @@ class Admin_Dashboard {
 											class="aicfm-keyword-input aicfm-row-keyword"
 											data-post-id="<?php echo esc_attr( (string) $post_id ); ?>"
 											value="<?php echo esc_attr( $keyword ); ?>"
-											placeholder="<?php esc_attr_e( 'e.g., seo audit guide', 'ai-content-freshness' ); ?>"
+											placeholder="<?php esc_attr_e( 'e.g., seo audit guide', 'ai-content-freshness-monitor' ); ?>"
 											autocomplete="off"
 										/>
 										<span class="aicfm-keyword-status" id="aicfm-kw-status-<?php echo esc_attr( (string) $post_id ); ?>"></span>
@@ -199,7 +199,7 @@ class Admin_Dashboard {
 											<span class="aicfm-status-date"><?php echo esc_html( $audited_formatted ); ?></span>
 										<?php endif; ?>
 									<?php else : ?>
-										<span class="aicfm-badge badge-stale"><?php esc_html_e( 'Needs Audit', 'ai-content-freshness' ); ?></span>
+										<span class="aicfm-badge badge-stale"><?php esc_html_e( 'Needs Audit', 'ai-content-freshness-monitor' ); ?></span>
 									<?php endif; ?>
 								</td>
 
@@ -211,7 +211,7 @@ class Admin_Dashboard {
 											class="button button-secondary aicfm-row-scan-btn"
 											data-post-id="<?php echo esc_attr( (string) $post_id ); ?>"
 										>
-											<?php echo ( ! empty( $report ) ) ? esc_html__( 'Re-Scan', 'ai-content-freshness' ) : esc_html__( 'Scan Now', 'ai-content-freshness' ); ?>
+											<?php echo ( ! empty( $report ) ) ? esc_html__( 'Re-Scan', 'ai-content-freshness-monitor' ) : esc_html__( 'Scan Now', 'ai-content-freshness-monitor' ); ?>
 										</button>
 										<span class="aicfm-row-status" id="aicfm-row-status-<?php echo esc_attr( (string) $post_id ); ?>"></span>
 									</div>
@@ -221,18 +221,18 @@ class Admin_Dashboard {
 					<?php else : ?>
 						<tr>
 							<td colspan="5" class="aicfm-empty-cell">
-								<p><?php esc_html_e( 'No stale posts found. All your published posts have been modified recently!', 'ai-content-freshness' ); ?></p>
+								<p><?php esc_html_e( 'No stale posts found. All your published posts have been modified recently!', 'ai-content-freshness-monitor' ); ?></p>
 							</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
 				<tfoot>
 					<tr>
-						<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-modified"><?php esc_html_e( 'Last Modified', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-keyword"><?php esc_html_e( 'Target Keyword', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-freshness"><?php esc_html_e( 'Freshness Status', 'ai-content-freshness' ); ?></th>
-						<th scope="col" class="manage-column column-actions"><?php esc_html_e( 'Actions', 'ai-content-freshness' ); ?></th>
+						<th scope="col" class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-modified"><?php esc_html_e( 'Last Modified', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-keyword"><?php esc_html_e( 'Target Keyword', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-freshness"><?php esc_html_e( 'Freshness Status', 'ai-content-freshness-monitor' ); ?></th>
+						<th scope="col" class="manage-column column-actions"><?php esc_html_e( 'Actions', 'ai-content-freshness-monitor' ); ?></th>
 					</tr>
 				</tfoot>
 			</table>

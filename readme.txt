@@ -3,7 +3,7 @@ Contributors: nacharcode
 Donate link: https://www.patreon.com/nacharcode/membership
 Tags: seo, content audit, content freshness, ai, gemini
 Requires at least: 5.8
-Tested up to: 6.7
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
