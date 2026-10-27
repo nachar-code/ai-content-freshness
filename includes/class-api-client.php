@@ -47,7 +47,7 @@ class API_Client {
 		if ( empty( $api_key ) ) {
 			return new \WP_Error(
 				'missing_api_key',
-				__( 'API key is missing in Content Freshness settings.', 'ai-content-freshness' )
+				__( 'API key is missing in Content Freshness settings.', 'ai-content-freshness-monitor' )
 			);
 		}
 
@@ -56,7 +56,7 @@ class API_Client {
 		if ( empty( trim( $clean_content ) ) ) {
 			return new \WP_Error(
 				'empty_content',
-				__( 'Post content is empty or contains no readable text to audit.', 'ai-content-freshness' )
+				__( 'Post content is empty or contains no readable text to audit.', 'ai-content-freshness-monitor' )
 			);
 		}
 
@@ -170,7 +170,7 @@ class API_Client {
 				? $data['error']['message']
 				: sprintf(
 					/* translators: %d: HTTP status code */
-					__( 'Gemini API responded with HTTP %d.', 'ai-content-freshness' ),
+					__( 'Gemini API responded with HTTP %d.', 'ai-content-freshness-monitor' ),
 					$status_code
 				);
 			return new \WP_Error( 'gemini_api_error', $err_msg );
@@ -191,7 +191,7 @@ class API_Client {
 				'gemini_finish_reason',
 				sprintf(
 					/* translators: %s: Finish reason name */
-					__( 'Gemini stopped generation due to: %s', 'ai-content-freshness' ),
+					__( 'Gemini stopped generation due to: %s', 'ai-content-freshness-monitor' ),
 					esc_html( $data['candidates'][0]['finishReason'] )
 				)
 			);
@@ -255,7 +255,7 @@ class API_Client {
 				? $data['error']['message']
 				: sprintf(
 					/* translators: %d: HTTP status code */
-					__( 'OpenAI API responded with HTTP %d.', 'ai-content-freshness' ),
+					__( 'OpenAI API responded with HTTP %d.', 'ai-content-freshness-monitor' ),
 					$status_code
 				);
 			return new \WP_Error( 'openai_api_error', $err_msg );
@@ -274,7 +274,7 @@ class API_Client {
 	 */
 	public function parse_and_validate_json( $raw_text ) {
 		if ( empty( $raw_text ) ) {
-			return new \WP_Error( 'empty_response', __( 'AI engine returned an empty response.', 'ai-content-freshness' ) );
+			return new \WP_Error( 'empty_response', __( 'AI engine returned an empty response.', 'ai-content-freshness-monitor' ) );
 		}
 
 		// Strip markdown code block wrapping.
@@ -291,7 +291,7 @@ class API_Client {
 		if ( ! is_array( $decoded ) ) {
 			return new \WP_Error(
 				'invalid_json',
-				__( 'Failed to parse audit results into valid JSON format.', 'ai-content-freshness' )
+				__( 'Failed to parse audit results into valid JSON format.', 'ai-content-freshness-monitor' )
 			);
 		}
 
@@ -303,7 +303,7 @@ class API_Client {
 					'missing_schema_key',
 					sprintf(
 						/* translators: %s: Missing JSON key */
-						__( 'Audit payload is missing required key: "%s".', 'ai-content-freshness' ),
+						__( 'Audit payload is missing required key: "%s".', 'ai-content-freshness-monitor' ),
 						$key
 					)
 				);
