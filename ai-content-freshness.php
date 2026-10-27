@@ -74,7 +74,9 @@ add_action( 'plugins_loaded', 'aicfm_init_plugin' );
  */
 function aicfm_add_action_links( $links ) {
 	$settings_link = '<a href="' . esc_url( admin_url( 'tools.php?page=aicfm-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-content-freshness' ) . '</a>';
+	$patreon_link  = '<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" style="color: #f96854; font-weight: bold;">' . esc_html__( 'Support on Patreon', 'ai-content-freshness' ) . '</a>';
 	array_unshift( $links, $settings_link );
+	$links[] = $patreon_link;
 	return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'aicfm_add_action_links' );

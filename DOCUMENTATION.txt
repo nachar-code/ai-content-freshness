@@ -6,6 +6,7 @@ Plugin Slug:       ai-content-freshness
 Version:           1.0.0
 Author:            nachar-code
 Author Website:    https://github.com/nachar-code
+Support on Patreon:https://www.patreon.com/nacharcode/membership
 Repository:        https://github.com/nachar-code/ai-content-freshness
 License:           GPL-2.0-or-later
 Target PHP:        7.4 to 8.3

@@ -357,6 +357,22 @@ class Admin_Settings {
 					</form>
 				</div>
 			<?php endif; ?>
+
+			<!-- Patreon Supporter Banner -->
+			<div class="aicfm-support-card">
+				<div class="aicfm-support-content">
+					<span class="dashicons dashicons-heart aicfm-heart-icon"></span>
+					<div class="aicfm-support-text">
+						<h3><?php esc_html_e( 'Support Independent Open-Source Development', 'ai-content-freshness' ); ?></h3>
+						<p><?php esc_html_e( 'AI Content Freshness Monitor is 100% free and open-source under GPLv2. If this plugin saves you time or helps your SEO rankings, consider supporting future development and maintenance on Patreon.', 'ai-content-freshness' ); ?></p>
+					</div>
+				</div>
+				<div class="aicfm-support-action">
+					<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" class="button button-primary aicfm-patreon-btn">
+						<?php esc_html_e( '☕ Become a Patron', 'ai-content-freshness' ); ?>
+					</a>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
