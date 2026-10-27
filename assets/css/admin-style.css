@@ -1,0 +1,491 @@
+/**
+ * AI Content Freshness Monitor - Admin Stylesheet
+ *
+ * @package AI_Content_Freshness
+ */
+
+.aicfm-settings-wrap {
+	max-width: 900px;
+}
+
+.aicfm-settings-form table.form-table th {
+	width: 220px;
+}
+
+.aicfm-hidden {
+	display: none !important;
+}
+
+.aicfm-key-input-group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.aicfm-key-input-group .aicfm-key-input {
+	width: 320px;
+	max-width: 100%;
+}
+
+.aicfm-test-result {
+	display: inline-flex;
+	align-items: center;
+	font-size: 13px;
+	line-height: 1.4;
+	min-height: 28px;
+}
+
+.aicfm-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 4px 10px;
+	border-radius: 4px;
+	font-weight: 500;
+	font-size: 12px;
+	animation: aicfmFadeIn 0.25s ease-in-out;
+}
+
+.aicfm-badge-loading {
+	background-color: #f0f0f1;
+	color: #50575e;
+	border: 1px solid #c3c4c7;
+}
+
+.aicfm-badge-loading .spinner {
+	visibility: visible;
+	float: none;
+	margin: 0;
+}
+
+.aicfm-badge-success {
+	background-color: #edfaef;
+	color: #007017;
+	border: 1px solid #68de7c;
+}
+
+.aicfm-badge-error {
+	background-color: #fcf0f1;
+	color: #d63638;
+	border: 1px solid #f5c2c7;
+}
+
+/* Post Meta Box Styles */
+.aicfm-metabox-content {
+	padding: 4px 0;
+}
+
+.aicfm-metabox-content .aicfm-field-group {
+	margin-bottom: 12px;
+}
+
+.aicfm-metabox-content .aicfm-label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.aicfm-metabox-content .aicfm-keyword-input {
+	font-size: 13px;
+	padding: 5px 8px;
+}
+
+.aicfm-metabox-content .aicfm-meta-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 10px;
+	margin-bottom: 12px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	font-size: 12px;
+}
+
+.aicfm-info-label {
+	color: #646970;
+	font-weight: 600;
+}
+
+.aicfm-info-value {
+	color: #2c3338;
+	font-weight: 500;
+}
+
+.aicfm-metabox-content .aicfm-action-wrap {
+	margin-bottom: 12px;
+}
+
+.aicfm-metabox-content #aicfm-run-audit-btn {
+	text-align: center;
+	height: 34px;
+	line-height: 32px;
+}
+
+.aicfm-results-container {
+	margin-top: 10px;
+}
+
+/* Report Card & Scorecard Styles */
+.aicfm-report-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 12px;
+	margin-top: 10px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	animation: aicfmFadeIn 0.3s ease-in-out;
+}
+
+.aicfm-score-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 12px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.aicfm-score-pill {
+	display: inline-flex;
+	align-items: baseline;
+	justify-content: center;
+	min-width: 68px;
+	height: 40px;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-weight: 700;
+	box-sizing: border-box;
+}
+
+.aicfm-score-number {
+	font-size: 20px;
+	line-height: 1;
+}
+
+.aicfm-score-total {
+	font-size: 12px;
+	opacity: 0.8;
+	margin-left: 2px;
+}
+
+.aicfm-score-high {
+	background-color: #edfaef;
+	color: #007017;
+	border: 2px solid #00a32a;
+}
+
+.aicfm-score-medium {
+	background-color: #fef7ed;
+	color: #c25e00;
+	border: 2px solid #dba617;
+}
+
+.aicfm-score-low {
+	background-color: #fcf0f1;
+	color: #d63638;
+	border: 2px solid #d63638;
+}
+
+.aicfm-score-meta {
+	display: flex;
+	flex-direction: column;
+}
+
+.aicfm-score-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.aicfm-summary-box {
+	background: #f6f7f7;
+	border-left: 3px solid #2271b1;
+	padding: 8px 10px;
+	margin-bottom: 12px;
+	border-radius: 0 4px 4px 0;
+}
+
+.aicfm-summary-box p {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #2c3338;
+}
+
+/* Sections & Collapsibles */
+.aicfm-section {
+	margin-top: 10px;
+	border-top: 1px solid #f0f0f1;
+	padding-top: 8px;
+}
+
+.aicfm-details summary.aicfm-section-title {
+	font-size: 12px;
+	font-weight: 600;
+	color: #1d2327;
+	cursor: pointer;
+	user-select: none;
+	padding: 4px 0;
+}
+
+.aicfm-details summary.aicfm-section-title:hover {
+	color: #2271b1;
+}
+
+/* Outdated Points */
+.aicfm-points-list {
+	list-style: none;
+	margin: 8px 0 0 0;
+	padding: 0;
+}
+
+.aicfm-point-item {
+	background: #fbfbfb;
+	border: 1px solid #e2e4e7;
+	border-radius: 4px;
+	padding: 6px 8px;
+	margin-bottom: 6px;
+	font-size: 12px;
+}
+
+.aicfm-claim {
+	color: #d63638;
+	margin-bottom: 4px;
+	line-height: 1.35;
+}
+
+.aicfm-claim-tag {
+	font-weight: 700;
+	margin-right: 4px;
+}
+
+.aicfm-fix {
+	color: #007017;
+	line-height: 1.35;
+}
+
+.aicfm-fix-tag {
+	font-weight: 700;
+	margin-right: 4px;
+}
+
+/* Missing Topics */
+.aicfm-tags-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 8px;
+}
+
+.aicfm-topic-badge {
+	background: #f0f6fc;
+	border: 1px solid #c8d7e1;
+	border-radius: 4px;
+	padding: 4px 8px;
+	font-size: 11px;
+	line-height: 1.3;
+}
+
+.aicfm-topic-title {
+	font-weight: 600;
+	color: #0c4a6e;
+	display: block;
+}
+
+.aicfm-topic-reason {
+	font-size: 10px;
+	color: #475569;
+	display: block;
+	margin-top: 2px;
+}
+
+/* Action Checklist */
+.aicfm-checklist {
+	list-style: none;
+	margin: 8px 0 0 0;
+	padding: 0;
+}
+
+.aicfm-checklist-item {
+	margin-bottom: 6px;
+	font-size: 12px;
+	line-height: 1.4;
+}
+
+.aicfm-checklist-item label {
+	display: flex;
+	align-items: flex-start;
+	gap: 6px;
+	cursor: pointer;
+}
+
+.aicfm-checklist-item input[type="checkbox"] {
+	margin-top: 2px;
+	flex-shrink: 0;
+}
+
+.aicfm-checklist-item.is-completed span {
+	text-decoration: line-through;
+	color: #8c8f94;
+}
+
+/* =============================================================================
+ * Stale Posts Inventory Dashboard Styles
+ * ========================================================================== */
+.aicfm-admin-wrap h1 {
+	margin-bottom: 12px;
+}
+
+.aicfm-nav-tab-wrapper {
+	margin-bottom: 16px;
+}
+
+.aicfm-summary-banner {
+	margin: 12px 0 16px;
+	padding: 8px 12px;
+	font-size: 13px;
+	border-left-width: 4px;
+}
+
+.aicfm-summary-banner p {
+	margin: 0.5em 0;
+}
+
+.aicfm-inventory-table {
+	margin-top: 10px;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.aicfm-inventory-table th.column-title {
+	width: 28%;
+}
+
+.aicfm-inventory-table th.column-modified {
+	width: 15%;
+}
+
+.aicfm-inventory-table th.column-keyword {
+	width: 24%;
+}
+
+.aicfm-inventory-table th.column-freshness {
+	width: 17%;
+}
+
+.aicfm-inventory-table th.column-actions {
+	width: 16%;
+}
+
+.aicfm-inventory-table td {
+	vertical-align: middle;
+}
+
+/* Table Score Pills */
+.aicfm-score-pill {
+	display: inline-block;
+	padding: 3px 8px;
+	border-radius: 12px;
+	font-weight: 600;
+	font-size: 12px;
+	color: #fff;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.aicfm-score-pill.score-green {
+	background: #46b450;
+	color: #fff;
+}
+
+.aicfm-score-pill.score-orange {
+	background: #ffb900;
+	color: #222;
+}
+
+.aicfm-score-pill.score-red {
+	background: #dc3232;
+	color: #fff;
+}
+
+.aicfm-badge.badge-stale {
+	background: #e2e4e7;
+	color: #555d66;
+	padding: 3px 8px;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 500;
+	display: inline-block;
+}
+
+/* Keyword Inline Edit */
+.aicfm-keyword-field-wrap {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	position: relative;
+}
+
+.aicfm-keyword-input {
+	width: 100%;
+	max-width: 220px;
+	padding: 4px 8px;
+	font-size: 12px;
+}
+
+.aicfm-keyword-status {
+	font-size: 11px;
+	font-weight: 600;
+	white-space: nowrap;
+	min-width: 45px;
+	transition: opacity 0.3s;
+}
+
+.aicfm-keyword-status.is-saving {
+	color: #646970;
+}
+
+.aicfm-keyword-status.is-saved {
+	color: #007017;
+}
+
+.aicfm-keyword-status.is-error {
+	color: #d63638;
+}
+
+/* Action Button & Status */
+.aicfm-row-action-wrap {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.aicfm-row-status {
+	font-size: 11px;
+	line-height: 1.4;
+}
+
+.aicfm-row-status .spinner {
+	float: none;
+	margin: 0;
+	visibility: visible;
+}
+
+.aicfm-empty-cell {
+	padding: 30px !important;
+	text-align: center;
+	color: #646970;
+}
+
+@keyframes aicfmFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-2px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
