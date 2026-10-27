@@ -11,7 +11,6 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ai-content-freshness-monitor
- * Domain Path:       /languages
  *
  * @package AI_Content_Freshness
  */
