@@ -1,7 +1,7 @@
 === AI Content Freshness Monitor ===
 Contributors: nacharcode
 Donate link: https://www.patreon.com/nacharcode/membership
-Tags: seo, content audit, content freshness, ai, gemini, search grounding, stale content
+Tags: seo, content audit, content freshness, ai, gemini
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
