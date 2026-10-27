@@ -33,7 +33,7 @@ class Post_Meta {
 	public function register_meta_box() {
 		add_meta_box(
 			'aicfm_freshness_box',
-			__( 'Content Freshness Audit', 'ai-content-freshness-monitor' ),
+			__( 'Content Freshness Audit', 'ai-content-freshness' ),
 			array( $this, 'render_meta_box' ),
 			'post',
 			'side',
@@ -55,7 +55,7 @@ class Post_Meta {
 		$last_audited   = get_post_meta( $post->ID, '_aicfm_last_audited', true );
 		$existing_report = get_post_meta( $post->ID, '_aicfm_audit_report', true );
 
-		$formatted_date = __( 'Never', 'ai-content-freshness-monitor' );
+		$formatted_date = __( 'Never', 'ai-content-freshness' );
 		if ( ! empty( $last_audited ) ) {
 			$timestamp = strtotime( $last_audited );
 			if ( $timestamp ) {
@@ -70,7 +70,7 @@ class Post_Meta {
 			<!-- Target Keyword Field -->
 			<div class="aicfm-field-group">
 				<label for="aicfm-target-keyword" class="aicfm-label">
-					<strong><?php esc_html_e( 'Target Keyword:', 'ai-content-freshness-monitor' ); ?></strong>
+					<strong><?php esc_html_e( 'Target Keyword:', 'ai-content-freshness' ); ?></strong>
 				</label>
 				<input
 					type="text"
@@ -78,16 +78,16 @@ class Post_Meta {
 					name="_aicfm_target_keyword"
 					value="<?php echo esc_attr( $target_keyword ); ?>"
 					class="widefat aicfm-keyword-input"
-					placeholder="<?php esc_attr_e( 'e.g., best espresso machine 2026', 'ai-content-freshness-monitor' ); ?>"
+					placeholder="<?php esc_attr_e( 'e.g., best espresso machine 2026', 'ai-content-freshness' ); ?>"
 				/>
 				<p class="description">
-					<?php esc_html_e( 'Primary search phrase used to evaluate competitor content freshness.', 'ai-content-freshness-monitor' ); ?>
+					<?php esc_html_e( 'Primary search phrase used to evaluate competitor content freshness.', 'ai-content-freshness' ); ?>
 				</p>
 			</div>
 
 			<!-- Last Audited Indicator -->
 			<div class="aicfm-meta-info">
-				<span class="aicfm-info-label"><?php esc_html_e( 'Last Audited:', 'ai-content-freshness-monitor' ); ?></span>
+				<span class="aicfm-info-label"><?php esc_html_e( 'Last Audited:', 'ai-content-freshness' ); ?></span>
 				<span class="aicfm-info-value" id="aicfm-last-audited-val"><?php echo esc_html( $formatted_date ); ?></span>
 			</div>
 
@@ -99,7 +99,7 @@ class Post_Meta {
 					class="button button-primary button-large widefat"
 					data-post-id="<?php echo esc_attr( (string) $post->ID ); ?>"
 				>
-					<?php esc_html_e( 'Scan & Refresh', 'ai-content-freshness-monitor' ); ?>
+					<?php esc_html_e( 'Scan & Refresh', 'ai-content-freshness' ); ?>
 				</button>
 			</div>
 
@@ -142,7 +142,7 @@ class Post_Meta {
 					<span class="aicfm-score-total">/100</span>
 				</div>
 				<div class="aicfm-score-meta">
-					<span class="aicfm-score-label"><?php esc_html_e( 'Freshness Score', 'ai-content-freshness-monitor' ); ?></span>
+					<span class="aicfm-score-label"><?php esc_html_e( 'Freshness Score', 'ai-content-freshness' ); ?></span>
 				</div>
 			</div>
 
@@ -158,17 +158,17 @@ class Post_Meta {
 				<div class="aicfm-section aicfm-section-outdated">
 					<details class="aicfm-details" open>
 						<summary class="aicfm-section-title">
-							<span><?php esc_html_e( 'Outdated Points', 'ai-content-freshness-monitor' ); ?> (<?php echo esc_html( (string) count( $report['outdated_points'] ) ); ?>)</span>
+							<span><?php esc_html_e( 'Outdated Points', 'ai-content-freshness' ); ?> (<?php echo esc_html( (string) count( $report['outdated_points'] ) ); ?>)</span>
 						</summary>
 						<ul class="aicfm-points-list">
 							<?php foreach ( $report['outdated_points'] as $point ) : ?>
 								<li class="aicfm-point-item">
 									<div class="aicfm-claim">
-										<span class="aicfm-claim-tag"><?php esc_html_e( 'Claim:', 'ai-content-freshness-monitor' ); ?></span>
+										<span class="aicfm-claim-tag"><?php esc_html_e( 'Claim:', 'ai-content-freshness' ); ?></span>
 										<span><?php echo esc_html( $point['claim'] ?? '' ); ?></span>
 									</div>
 									<div class="aicfm-fix">
-										<span class="aicfm-fix-tag"><?php esc_html_e( 'Fix:', 'ai-content-freshness-monitor' ); ?></span>
+										<span class="aicfm-fix-tag"><?php esc_html_e( 'Fix:', 'ai-content-freshness' ); ?></span>
 										<span><?php echo esc_html( $point['fix'] ?? '' ); ?></span>
 									</div>
 								</li>
@@ -183,7 +183,7 @@ class Post_Meta {
 				<div class="aicfm-section aicfm-section-topics">
 					<details class="aicfm-details" open>
 						<summary class="aicfm-section-title">
-							<span><?php esc_html_e( 'Missing Topics', 'ai-content-freshness-monitor' ); ?> (<?php echo esc_html( (string) count( $report['missing_topics'] ) ); ?>)</span>
+							<span><?php esc_html_e( 'Missing Topics', 'ai-content-freshness' ); ?> (<?php echo esc_html( (string) count( $report['missing_topics'] ) ); ?>)</span>
 						</summary>
 						<div class="aicfm-tags-wrap">
 							<?php foreach ( $report['missing_topics'] as $topic ) : ?>
@@ -204,7 +204,7 @@ class Post_Meta {
 				<div class="aicfm-section aicfm-section-actions">
 					<details class="aicfm-details" open>
 						<summary class="aicfm-section-title">
-							<span><?php esc_html_e( 'Action Steps', 'ai-content-freshness-monitor' ); ?> (<?php echo esc_html( (string) count( $report['action_steps'] ) ); ?>)</span>
+							<span><?php esc_html_e( 'Action Steps', 'ai-content-freshness' ); ?> (<?php echo esc_html( (string) count( $report['action_steps'] ) ); ?>)</span>
 						</summary>
 						<ul class="aicfm-checklist">
 							<?php foreach ( $report['action_steps'] as $index => $step ) : ?>
@@ -303,9 +303,9 @@ class Post_Meta {
 				'post_nonce' => wp_create_nonce( 'aicfm_post_nonce' ),
 				'post_id'    => $post_id,
 				'i18n'       => array(
-					'empty_keyword' => __( 'Please enter a target keyword before running an audit.', 'ai-content-freshness-monitor' ),
-					'running_audit' => __( 'Searching live web and auditing content...', 'ai-content-freshness-monitor' ),
-					'audit_failed'  => __( 'Audit failed. Please try again.', 'ai-content-freshness-monitor' ),
+					'empty_keyword' => __( 'Please enter a target keyword before running an audit.', 'ai-content-freshness' ),
+					'running_audit' => __( 'Searching live web and auditing content...', 'ai-content-freshness' ),
+					'audit_failed'  => __( 'Audit failed. Please try again.', 'ai-content-freshness' ),
 				),
 			)
 		);

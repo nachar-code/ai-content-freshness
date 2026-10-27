@@ -37,14 +37,14 @@ class Ajax_Handlers {
 		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 		if ( ! $post_id ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Invalid post ID provided.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'Invalid post ID provided.', 'ai-content-freshness' ) )
 			);
 		}
 
 		// Check edit permission for this post.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Unauthorized to edit this post.', 'ai-content-freshness-monitor' ) ),
+				array( 'message' => esc_html__( 'Unauthorized to edit this post.', 'ai-content-freshness' ) ),
 				403
 			);
 		}
@@ -54,7 +54,7 @@ class Ajax_Handlers {
 
 		wp_send_json_success(
 			array(
-				'message' => esc_html__( 'Saved', 'ai-content-freshness-monitor' ),
+				'message' => esc_html__( 'Saved', 'ai-content-freshness' ),
 				'keyword' => $keyword,
 			)
 		);
@@ -72,7 +72,7 @@ class Ajax_Handlers {
 		// Check user permissions.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Unauthorized user.', 'ai-content-freshness-monitor' ) ),
+				array( 'message' => esc_html__( 'Unauthorized user.', 'ai-content-freshness' ) ),
 				403
 			);
 		}
@@ -84,7 +84,7 @@ class Ajax_Handlers {
 
 		if ( empty( $api_key ) ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'API key cannot be empty.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'API key cannot be empty.', 'ai-content-freshness' ) )
 			);
 		}
 
@@ -94,7 +94,7 @@ class Ajax_Handlers {
 			$this->test_openai_connection( $api_key, $model );
 		} else {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Invalid AI engine specified.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'Invalid AI engine specified.', 'ai-content-freshness' ) )
 			);
 		}
 	}
@@ -111,14 +111,14 @@ class Ajax_Handlers {
 		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 		if ( ! $post_id ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Invalid post ID provided.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'Invalid post ID provided.', 'ai-content-freshness' ) )
 			);
 		}
 
 		// Check edit permission.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'You do not have permission to audit this post.', 'ai-content-freshness-monitor' ) ),
+				array( 'message' => esc_html__( 'You do not have permission to audit this post.', 'ai-content-freshness' ) ),
 				403
 			);
 		}
@@ -126,7 +126,7 @@ class Ajax_Handlers {
 		$post = get_post( $post_id );
 		if ( ! $post ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Post not found.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'Post not found.', 'ai-content-freshness' ) )
 			);
 		}
 
@@ -140,7 +140,7 @@ class Ajax_Handlers {
 
 		if ( empty( $keyword ) ) {
 			wp_send_json_error(
-				array( 'message' => esc_html__( 'Please provide a target keyword.', 'ai-content-freshness-monitor' ) )
+				array( 'message' => esc_html__( 'Please provide a target keyword.', 'ai-content-freshness' ) )
 			);
 		}
 
@@ -148,8 +148,8 @@ class Ajax_Handlers {
 		$raw_title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : '';
 		$title     = '' !== trim( $raw_title ) ? $raw_title : $post->post_title;
 
-		$raw_content = isset( $_POST['content'] ) ? wp_unslash( $_POST['content'] ) : '';
-		$content     = '' !== trim( (string) $raw_content ) ? wp_kses_post( $raw_content ) : $post->post_content;
+		$raw_content = isset( $_POST['content'] ) ? wp_kses_post( wp_unslash( $_POST['content'] ) ) : '';
+		$content     = '' !== trim( $raw_content ) ? $raw_content : $post->post_content;
 
 		// Execute audit using API Client.
 		$client = new API_Client();
@@ -244,7 +244,7 @@ class Ajax_Handlers {
 				array(
 					'message' => sprintf(
 						/* translators: %s: Error message from WP_Error */
-						esc_html__( 'Connection request failed: %s', 'ai-content-freshness-monitor' ),
+						esc_html__( 'Connection request failed: %s', 'ai-content-freshness' ),
 						esc_html( $response->get_error_message() )
 					),
 				)
@@ -260,7 +260,7 @@ class Ajax_Handlers {
 				array(
 					'message' => sprintf(
 						/* translators: %s: Model name */
-						esc_html__( 'Google Gemini API key and model (%s) verified successfully!', 'ai-content-freshness-monitor' ),
+						esc_html__( 'Google Gemini API key and model (%s) verified successfully!', 'ai-content-freshness' ),
 						esc_html( $model )
 					),
 				)
@@ -268,7 +268,7 @@ class Ajax_Handlers {
 		} else {
 			$err_msg = isset( $data['error']['message'] ) ? $data['error']['message'] : sprintf(
 				/* translators: %d: HTTP status code */
-				__( 'API responded with HTTP status %d.', 'ai-content-freshness-monitor' ),
+				__( 'API responded with HTTP status %d.', 'ai-content-freshness' ),
 				$status_code
 			);
 
@@ -309,7 +309,7 @@ class Ajax_Handlers {
 				array(
 					'message' => sprintf(
 						/* translators: %s: Error message from WP_Error */
-						esc_html__( 'Connection request failed: %s', 'ai-content-freshness-monitor' ),
+						esc_html__( 'Connection request failed: %s', 'ai-content-freshness' ),
 						esc_html( $response->get_error_message() )
 					),
 				)
@@ -323,13 +323,13 @@ class Ajax_Handlers {
 		if ( 200 === $status_code ) {
 			wp_send_json_success(
 				array(
-					'message' => esc_html__( 'OpenAI API key verified successfully!', 'ai-content-freshness-monitor' ),
+					'message' => esc_html__( 'OpenAI API key verified successfully!', 'ai-content-freshness' ),
 				)
 			);
 		} else {
 			$err_msg = isset( $data['error']['message'] ) ? $data['error']['message'] : sprintf(
 				/* translators: %d: HTTP status code */
-				__( 'API responded with HTTP status %d.', 'ai-content-freshness-monitor' ),
+				__( 'API responded with HTTP status %d.', 'ai-content-freshness' ),
 				$status_code
 			);
 

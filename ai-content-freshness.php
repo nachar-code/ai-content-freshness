@@ -10,7 +10,7 @@
  * Author URI:        https://github.com/nachar-code
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-content-freshness-monitor
+ * Text Domain:       ai-content-freshness
  * Domain Path:       /languages
  *
  * @package AI_Content_Freshness
@@ -71,8 +71,8 @@ add_action( 'plugins_loaded', 'aicfm_init_plugin' );
  * @return array
  */
 function aicfm_add_action_links( $links ) {
-	$settings_link = '<a href="' . esc_url( admin_url( 'tools.php?page=aicfm-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-content-freshness-monitor' ) . '</a>';
-	$patreon_link  = '<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" style="color: #f96854; font-weight: bold;">' . esc_html__( 'Support on Patreon', 'ai-content-freshness-monitor' ) . '</a>';
+	$settings_link = '<a href="' . esc_url( admin_url( 'tools.php?page=aicfm-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-content-freshness' ) . '</a>';
+	$patreon_link  = '<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" style="color: #f96854; font-weight: bold;">' . esc_html__( 'Support on Patreon', 'ai-content-freshness' ) . '</a>';
 	array_unshift( $links, $settings_link );
 	$links[] = $patreon_link;
 	return $links;

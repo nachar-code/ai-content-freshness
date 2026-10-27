@@ -40,8 +40,8 @@ class Admin_Settings {
 	public function register_menu() {
 		$this->hook_suffix = add_submenu_page(
 			'tools.php',
-			__( 'Content Freshness', 'ai-content-freshness-monitor' ),
-			__( 'Content Freshness', 'ai-content-freshness-monitor' ),
+			__( 'Content Freshness', 'ai-content-freshness' ),
+			__( 'Content Freshness', 'ai-content-freshness' ),
 			'manage_options',
 			'aicfm-settings',
 			array( $this, 'render_settings_page' )
@@ -141,16 +141,16 @@ class Admin_Settings {
 				'save_kw_nonce' => wp_create_nonce( 'aicfm_save_keyword_nonce' ),
 				'post_nonce'    => wp_create_nonce( 'aicfm_post_nonce' ),
 				'i18n'          => array(
-					'empty_key'           => __( 'Please enter an API key to test.', 'ai-content-freshness-monitor' ),
-					'testing'             => __( 'Testing connection...', 'ai-content-freshness-monitor' ),
-					'success'             => __( 'Connected successfully!', 'ai-content-freshness-monitor' ),
-					'error'               => __( 'Connection failed.', 'ai-content-freshness-monitor' ),
-					'saving'              => __( 'Saving...', 'ai-content-freshness-monitor' ),
-					'saved'               => __( 'Saved', 'ai-content-freshness-monitor' ),
-					'save_failed'         => __( 'Failed to save', 'ai-content-freshness-monitor' ),
-					'auditing_serp'       => __( 'Auditing SERP...', 'ai-content-freshness-monitor' ),
-					'enter_keyword_first' => __( 'Please enter a target keyword first.', 'ai-content-freshness-monitor' ),
-					'rescan'              => __( 'Re-Scan', 'ai-content-freshness-monitor' ),
+					'empty_key'           => __( 'Please enter an API key to test.', 'ai-content-freshness' ),
+					'testing'             => __( 'Testing connection...', 'ai-content-freshness' ),
+					'success'             => __( 'Connected successfully!', 'ai-content-freshness' ),
+					'error'               => __( 'Connection failed.', 'ai-content-freshness' ),
+					'saving'              => __( 'Saving...', 'ai-content-freshness' ),
+					'saved'               => __( 'Saved', 'ai-content-freshness' ),
+					'save_failed'         => __( 'Failed to save', 'ai-content-freshness' ),
+					'auditing_serp'       => __( 'Auditing SERP...', 'ai-content-freshness' ),
+					'enter_keyword_first' => __( 'Please enter a target keyword first.', 'ai-content-freshness' ),
+					'rescan'              => __( 'Re-Scan', 'ai-content-freshness' ),
 				),
 			)
 		);
@@ -163,7 +163,7 @@ class Admin_Settings {
 	 */
 	public function render_settings_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'ai-content-freshness-monitor' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'ai-content-freshness' ) );
 		}
 
 		$current_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'inventory'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -184,10 +184,10 @@ class Admin_Settings {
 
 			<nav class="nav-tab-wrapper aicfm-nav-tab-wrapper">
 				<a href="<?php echo esc_url( admin_url( 'tools.php?page=aicfm-settings&tab=inventory' ) ); ?>" class="nav-tab <?php echo ( 'inventory' === $current_tab ) ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'Stale Posts Inventory', 'ai-content-freshness-monitor' ); ?>
+					<?php esc_html_e( 'Stale Posts Inventory', 'ai-content-freshness' ); ?>
 				</a>
 				<a href="<?php echo esc_url( admin_url( 'tools.php?page=aicfm-settings&tab=settings' ) ); ?>" class="nav-tab <?php echo ( 'settings' === $current_tab ) ? 'nav-tab-active' : ''; ?>">
-					<?php esc_html_e( 'API & Engine Settings', 'ai-content-freshness-monitor' ); ?>
+					<?php esc_html_e( 'API & Engine Settings', 'ai-content-freshness' ); ?>
 				</a>
 			</nav>
 
@@ -199,7 +199,7 @@ class Admin_Settings {
 			<?php else : ?>
 				<div class="aicfm-settings-wrap">
 					<p class="description">
-						<?php esc_html_e( 'Configure your AI provider credentials and audit thresholds for content freshness monitoring.', 'ai-content-freshness-monitor' ); ?>
+						<?php esc_html_e( 'Configure your AI provider credentials and audit thresholds for content freshness monitoring.', 'ai-content-freshness' ); ?>
 					</p>
 
 					<form method="post" action="options.php" class="aicfm-settings-form">
@@ -213,19 +213,19 @@ class Admin_Settings {
 								<!-- AI Engine Selection -->
 								<tr>
 									<th scope="row">
-										<label for="aicfm-engine"><?php esc_html_e( 'AI Engine Provider', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-engine"><?php esc_html_e( 'AI Engine Provider', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<select id="aicfm-engine" name="<?php echo esc_attr( AICFM_SETTINGS_KEY ); ?>[engine]">
 											<option value="gemini" <?php selected( $engine, 'gemini' ); ?>>
-												<?php esc_html_e( 'Google Gemini (with Google Search)', 'ai-content-freshness-monitor' ); ?>
+												<?php esc_html_e( 'Google Gemini (with Google Search)', 'ai-content-freshness' ); ?>
 											</option>
 											<option value="openai" <?php selected( $engine, 'openai' ); ?>>
-												<?php esc_html_e( 'OpenAI GPT-4o (with Web Search)', 'ai-content-freshness-monitor' ); ?>
+												<?php esc_html_e( 'OpenAI GPT-4o (with Web Search)', 'ai-content-freshness' ); ?>
 											</option>
 										</select>
 										<p class="description">
-											<?php esc_html_e( 'Select the primary AI engine to perform real-time search grounding audits.', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Select the primary AI engine to perform real-time search grounding audits.', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
@@ -233,7 +233,7 @@ class Admin_Settings {
 								<!-- Gemini API Key -->
 								<tr class="aicfm-engine-row aicfm-engine-gemini <?php echo ( 'gemini' !== $engine ) ? 'aicfm-hidden' : ''; ?>">
 									<th scope="row">
-										<label for="aicfm-gemini-key"><?php esc_html_e( 'Gemini API Key', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-gemini-key"><?php esc_html_e( 'Gemini API Key', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<div class="aicfm-key-input-group">
@@ -250,12 +250,12 @@ class Admin_Settings {
 												class="button aicfm-test-key-btn"
 												data-engine="gemini"
 											>
-												<?php esc_html_e( 'Test Connection', 'ai-content-freshness-monitor' ); ?>
+												<?php esc_html_e( 'Test Connection', 'ai-content-freshness' ); ?>
 											</button>
 											<span class="aicfm-test-result" id="aicfm-gemini-test-result"></span>
 										</div>
 										<p class="description">
-											<?php esc_html_e( 'Obtain your API key from Google AI Studio.', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Obtain your API key from Google AI Studio.', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
@@ -263,7 +263,7 @@ class Admin_Settings {
 								<!-- Gemini Model Selection (Manual or Default) -->
 								<tr class="aicfm-engine-row aicfm-engine-gemini <?php echo ( 'gemini' !== $engine ) ? 'aicfm-hidden' : ''; ?>">
 									<th scope="row">
-										<label for="aicfm-gemini-model"><?php esc_html_e( 'Gemini Model', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-gemini-model"><?php esc_html_e( 'Gemini Model', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<input
@@ -275,7 +275,7 @@ class Admin_Settings {
 											placeholder="gemini-3.8-flash"
 										/>
 										<p class="description">
-											<?php esc_html_e( 'Model name (default: gemini-3.8-flash). You can enter any Gemini model manually, or leave blank to fallback to gemini-3.8-flash.', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Model name (default: gemini-3.8-flash). You can enter any Gemini model manually, or leave blank to fallback to gemini-3.8-flash.', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
@@ -283,7 +283,7 @@ class Admin_Settings {
 								<!-- OpenAI API Key -->
 								<tr class="aicfm-engine-row aicfm-engine-openai <?php echo ( 'openai' !== $engine ) ? 'aicfm-hidden' : ''; ?>">
 									<th scope="row">
-										<label for="aicfm-openai-key"><?php esc_html_e( 'OpenAI API Key', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-openai-key"><?php esc_html_e( 'OpenAI API Key', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<div class="aicfm-key-input-group">
@@ -300,12 +300,12 @@ class Admin_Settings {
 												class="button aicfm-test-key-btn"
 												data-engine="openai"
 											>
-												<?php esc_html_e( 'Test Connection', 'ai-content-freshness-monitor' ); ?>
+												<?php esc_html_e( 'Test Connection', 'ai-content-freshness' ); ?>
 											</button>
 											<span class="aicfm-test-result" id="aicfm-openai-test-result"></span>
 										</div>
 										<p class="description">
-											<?php esc_html_e( 'Obtain your API key from the OpenAI platform dashboard.', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Obtain your API key from the OpenAI platform dashboard.', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
@@ -313,7 +313,7 @@ class Admin_Settings {
 								<!-- OpenAI Model Selection (Manual or Default) -->
 								<tr class="aicfm-engine-row aicfm-engine-openai <?php echo ( 'openai' !== $engine ) ? 'aicfm-hidden' : ''; ?>">
 									<th scope="row">
-										<label for="aicfm-openai-model"><?php esc_html_e( 'OpenAI Model', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-openai-model"><?php esc_html_e( 'OpenAI Model', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<input
@@ -325,7 +325,7 @@ class Admin_Settings {
 											placeholder="gpt-4o"
 										/>
 										<p class="description">
-											<?php esc_html_e( 'Model name (default: gpt-4o). You can enter any OpenAI model manually, or leave blank to fallback to gpt-4o.', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Model name (default: gpt-4o). You can enter any OpenAI model manually, or leave blank to fallback to gpt-4o.', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
@@ -333,7 +333,7 @@ class Admin_Settings {
 								<!-- Staleness Threshold -->
 								<tr>
 									<th scope="row">
-										<label for="aicfm-staleness-mo"><?php esc_html_e( 'Staleness Threshold (Months)', 'ai-content-freshness-monitor' ); ?></label>
+										<label for="aicfm-staleness-mo"><?php esc_html_e( 'Staleness Threshold (Months)', 'ai-content-freshness' ); ?></label>
 									</th>
 									<td>
 										<input
@@ -346,14 +346,14 @@ class Admin_Settings {
 											step="1"
 										/>
 										<p class="description">
-											<?php esc_html_e( 'Number of months after which content is deemed potentially stale (default: 6).', 'ai-content-freshness-monitor' ); ?>
+											<?php esc_html_e( 'Number of months after which content is deemed potentially stale (default: 6).', 'ai-content-freshness' ); ?>
 										</p>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 
-						<?php submit_button( __( 'Save Settings', 'ai-content-freshness-monitor' ) ); ?>
+						<?php submit_button( __( 'Save Settings', 'ai-content-freshness' ) ); ?>
 					</form>
 				</div>
 			<?php endif; ?>
@@ -363,13 +363,13 @@ class Admin_Settings {
 				<div class="aicfm-support-content">
 					<span class="dashicons dashicons-heart aicfm-heart-icon"></span>
 					<div class="aicfm-support-text">
-						<h3><?php esc_html_e( 'Support Independent Open-Source Development', 'ai-content-freshness-monitor' ); ?></h3>
-						<p><?php esc_html_e( 'AI Content Freshness Monitor is 100% free and open-source under GPLv2. If this plugin saves you time or helps your SEO rankings, consider supporting future development and maintenance on Patreon.', 'ai-content-freshness-monitor' ); ?></p>
+						<h3><?php esc_html_e( 'Support Independent Open-Source Development', 'ai-content-freshness' ); ?></h3>
+						<p><?php esc_html_e( 'AI Content Freshness Monitor is 100% free and open-source under GPLv2. If this plugin saves you time or helps your SEO rankings, consider supporting future development and maintenance on Patreon.', 'ai-content-freshness' ); ?></p>
 					</div>
 				</div>
 				<div class="aicfm-support-action">
 					<a href="https://www.patreon.com/nacharcode/membership" target="_blank" rel="noopener noreferrer" class="button button-primary aicfm-patreon-btn">
-						<?php esc_html_e( '☕ Become a Patron', 'ai-content-freshness-monitor' ); ?>
+						<?php esc_html_e( '☕ Become a Patron', 'ai-content-freshness' ); ?>
 					</a>
 				</div>
 			</div>
